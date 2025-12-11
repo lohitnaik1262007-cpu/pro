@@ -1,3 +1,130 @@
-<html>
-  <tittle>HI</tittle>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bus Tracker Pro</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+        integrity="sha512-sA+e2v1m3k3vO2o6o3i0v6Kc1g3f6uF0aO2e4S8j1z2lFq4u0Yq1bZ6f1p2x3y4z5" crossorigin=""/>
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Firebase (compat for simpler code below) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha512-kZ3Q5z0e9b3m9Y8F1q1k3n3Z9Nq1k2q3p1j2k3q1p1m3n3j1k2q1s3v2r1y1z2"
+          crossorigin=""></script>
+</head>
+<body>
+  <nav>
+    <div class="nav-title">🚌 Bus Tracker Pro</div>
+    <div class="nav-links">
+      <button class="nav-btn active" data-tab="passenger">Passenger</button>
+      <button class="nav-btn" data-tab="driver">Driver</button>
+      <button class="nav-btn" data-tab="admin">Admin</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- PASSENGER -->
+    <section id="passenger" class="tab-content active">
+      <div class="left-panel">
+        <div class="panel">
+          <h2>Find Your Bus</h2>
+          <label>Source</label>
+          <input id="sourceLocation" placeholder="Enter source" />
+          <label>Destination</label>
+          <input id="destinationLocation" placeholder="Enter destination" />
+          <label>Route</label>
+          <select id="routeNumber">
+            <option value="">All routes</option>
+            <option value="101">101 - City Center</option>
+            <option value="102">102 - Airport Express</option>
+            <option value="103">103 - Beach Road</option>
+            <option value="104">104 - University</option>
+            <option value="105">105 - Hospital</option>
+          </select>
+          <button class="btn btn-primary" id="searchBtn">Search</button>
+        </div>
+
+        <div class="panel">
+          <h3>Available Buses</h3>
+          <div id="busesList" class="buses-grid"></div>
+        </div>
+      </div>
+
+      <div class="map-panel">
+        <div id="map" style="height:100%;"></div>
+      </div>
+    </section>
+
+    <!-- DRIVER -->
+    <section id="driver" class="tab-content">
+      <div class="panel">
+        <h2>Driver - Share Location</h2>
+        <label>Driver Name</label>
+        <input id="driverName" placeholder="Driver name" />
+        <label>Bus ID (unique)</label>
+        <input id="busId" placeholder="e.g. BUS123" />
+        <label>Route</label>
+        <select id="driverRoute">
+          <option value="">Select route</option>
+          <option value="101">101</option>
+          <option value="102">102</option>
+          <option value="103">103</option>
+          <option value="104">104</option>
+          <option value="105">105</option>
+        </select>
+
+        <div class="location-row">
+          <input id="currentLat" readonly placeholder="Latitude" />
+          <input id="currentLng" readonly placeholder="Longitude" />
+          <button class="btn" id="getLocBtn">Get</button>
+        </div>
+
+        <div class="location-status" id="locationStatus" style="display:none;">
+          <div><strong>Coords:</strong> <span id="statusCoords"></span></div>
+          <div><strong>Last:</strong> <span id="lastUpdate">--</span></div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <button class="btn btn-primary" id="startShare">Start Sharing</button>
+          <button class="btn btn-secondary" id="stopShare">Stop Sharing</button>
+        </div>
+
+        <div id="driverAlert" class="alert" style="display:none;"></div>
+      </div>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="admin" class="tab-content">
+      <div class="panel">
+        <h2>Admin Dashboard</h2>
+        <table class="admin-table">
+          <thead>
+            <tr><th>Bus ID</th><th>Route</th><th>Driver</th><th>Location</th><th>Status</th><th>Last</th></tr>
+          </thead>
+          <tbody id="adminBody"></tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <h3>Manual Register Bus</h3>
+        <input id="adminBusId" placeholder="Bus ID" />
+        <input id="adminRoute" placeholder="Route" />
+        <button class="btn btn-primary" id="registerBusBtn">Register</button>
+        <div id="adminAlert" class="alert" style="display:none;"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- App script (main logic) -->
+  <script src="app.js"></script>
+</body>
 </html>

@@ -1,0 +1,60 @@
+:root{
+  --primary:#1F8A70;
+  --secondary:#FF6B35;
+  --bg:#F5F6F7;
+  --surface:#fff;
+  --text:#2C3E50;
+  --muted:#7F8C8D;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+nav{
+  background:linear-gradient(135deg,var(--primary),#0F6347);
+  color:#fff;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.nav-title{font-weight:700}
+.nav-links button{
+  background:transparent;border:none;color:#fff;margin-left:10px;padding:8px 12px;border-radius:6px;cursor:pointer;
+}
+.nav-links button.active{background:rgba(255,255,255,0.12)}
+.container{
+  display:flex;
+  gap:18px;
+  padding:18px;
+  height:calc(100vh - 64px);
+}
+.left-panel{width:360px;display:flex;flex-direction:column;gap:18px}
+.panel{background:var(--surface);padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.05)}
+.map-panel{flex:1;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.05);background:linear-gradient(180deg,#e8f5e9,#c8e6c9)}
+.tab-content{display:none;height:100%}
+.tab-content.active{display:flex;width:100%}
+#passenger{display:flex;width:100%;gap:18px}
+input,select{width:100%;padding:10px;margin-top:8px;border:1px solid #e6e9eb;border-radius:8px}
+label{font-size:0.9rem;color:var(--muted);margin-top:6px;display:block}
+.btn{padding:10px 14px;border-radius:8px;border:none;cursor:pointer;margin-top:10px}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-secondary{background:var(--secondary);color:#fff}
+.location-row{display:flex;gap:8px;align-items:center}
+.location-row input{flex:1}
+.buses-grid{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.bus-card{background:#fafafa;padding:10px;border-radius:8px;border-left:4px solid var(--primary)}
+.admin-table{width:100%;border-collapse:collapse;margin-top:12px}
+.admin-table th, .admin-table td{padding:10px;border-bottom:1px solid #f0f0f0;text-align:left}
+.alert{padding:10px;border-radius:6px;margin-top:10px}
+@media(max-width:900px){
+  .container{flex-direction:column;height:auto}
+  .left-panel{width:100%}
+  .map-panel{height:320px}
+}
